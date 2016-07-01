@@ -1,5 +1,6 @@
 package app;
 import app.index.IndexController;
+import app.login.LoginController;
 
 /**
  * Created by Vicky on 30/06/2016.
@@ -15,7 +16,10 @@ public class Application {
         enableDebugScreen();
 
         get(Routes.Web.INDEX, IndexController.serveIndexPage);
-        //get(Routes.Web.INDEX, (request, response) -> "Hello World");
+
+        // Login
+        get(Routes.Web.LOGIN, LoginController.serverLoginPage);
+        post(Routes.Web.LOGIN, LoginController.handleLoginPost);
     }
 
     private static int getPort(int defaultPort) {
