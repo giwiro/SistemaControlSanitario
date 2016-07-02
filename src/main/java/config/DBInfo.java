@@ -22,6 +22,7 @@ public class DBInfo {
         st.append(DB_PORT);
         st.append("/");
         st.append(DB_NAME);
+        st.append("?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory");
 
         return st.toString();
     }
@@ -38,6 +39,7 @@ public class DBInfo {
         st.append(DB_PORT);
         st.append("/");
         st.append(DB_NAME);
+        st.append("?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory");
 
         return st.toString();
     }
