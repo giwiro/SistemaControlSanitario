@@ -1,0 +1,11 @@
+<nav>
+    <ul>
+        <li><a title="inicio" href="/">Inicio</a></li>
+        #if ($isLogged)
+            <li>Hola $currentUser
+             <a title="cerrar" href="/logout">Cerrar Sesion</a></li>
+        #else
+            <li><a title="login" href="/login">Ingresar</a></li>
+        #end
+    </ul>
+</nav>

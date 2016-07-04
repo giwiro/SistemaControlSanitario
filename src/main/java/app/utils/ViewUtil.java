@@ -3,7 +3,8 @@ package app.utils;
 //import org.eclipse.jetty.http.*;
 import app.Routes;
 import spark.*;
-import spark.template.handlebars.*;
+import spark.template.velocity.VelocityTemplateEngine;
+
 import java.util.Map;
 import static app.utils.SessionUtil.*;
 
@@ -12,10 +13,11 @@ import static app.utils.SessionUtil.*;
  */
 public class ViewUtil {
 
-    private static HandlebarsTemplateEngine engine;
+    private static VelocityTemplateEngine engine;
 
     public static String render(Request request, Map<String, Object> model, String templatePath) {
         model.put("currentUser", getSessionCurrentUser(request));
+        model.put("isLogged", isLogged(request));
         model.put("WebPath", Routes.Web.class); // Access application URLs from templates
         if (model.get("titulo") == null) {
             model.put("titulo", "Sistema de Control Sanitario");
@@ -23,9 +25,10 @@ public class ViewUtil {
         return getRenderer().render(new ModelAndView(model, templatePath));
     }
 
-    private static HandlebarsTemplateEngine getRenderer() {
+    private static VelocityTemplateEngine getRenderer() {
         if (engine == null) {
-            engine = new HandlebarsTemplateEngine();
+            engine = new VelocityTemplateEngine();
+
         }
 
         return engine;

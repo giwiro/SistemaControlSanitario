@@ -1,6 +1,9 @@
 package app;
 import app.index.IndexController;
 import app.login.LoginController;
+import app.logout.LogoutController;
+import config.DBInfo;
+import org.sql2o.Sql2o;
 
 /**
  * Created by Vicky on 30/06/2016.
@@ -10,16 +13,26 @@ import static spark.Spark.*;
 import static spark.debug.DebugScreen.*;
 
 public class Application {
+
+    // Declare dependencies
+    public static Sql2o sql2o;
+
     public static void main(String[] args) {
+
+        sql2o = new Sql2o(DBInfo.getURL(), DBInfo.DB_USER, DBInfo.DB_PASSWORD);
 
         port(getPort(8080));
         enableDebugScreen();
 
-        get(Routes.Web.INDEX, IndexController.serveIndexPage);
+        get(Routes.Web.INDEX,           IndexController.serveIndexPage);
 
         // Login
-        get(Routes.Web.LOGIN, LoginController.serverLoginPage);
-        post(Routes.Web.LOGIN, LoginController.handleLoginPost);
+        before(Routes.Web.LOGIN,        LoginController.middlewareLogin);
+        get(Routes.Web.LOGIN,           LoginController.serverLoginPage);
+        post(Routes.Web.LOGIN,          LoginController.handleLoginPost);
+
+        //Logout
+        get(Routes.Web.LOGOUT,          LogoutController.handleLogout);
     }
 
     private static int getPort(int defaultPort) {

@@ -1,0 +1,29 @@
+#parse("/templates/common/layout.vm")
+#@mainLayout()
+
+    #include("/templates/common/navbar.vm")
+    
+
+    #if (!success)
+        <h1 style="color: red;">$result.getMessage()</h1>
+    #end
+    <h1>Login</h1>
+
+    <form action="/login" method="post">
+        <table>
+            <tbody>
+                <tr>
+                    <td>Usuario:</td>
+                    <td><input type="text" name="usuario" /></td>
+                </tr>
+                <tr>
+                    <td>Password:</td>
+                    <td><input type="password" name="password" /></td>
+                </tr>
+                <tr>
+                    <td><button type="submit">Ingresar</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+#end

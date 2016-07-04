@@ -25,8 +25,8 @@
 
         <dependency>
             <groupId>com.sparkjava</groupId>
-            <artifactId>spark-template-handlebars</artifactId>
-            <version>2.3</version>
+            <artifactId>spark-template-velocity</artifactId>
+            <version>LATEST</version>
         </dependency>
 
         <dependency>

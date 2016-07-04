@@ -1,0 +1,13 @@
+#parse("/templates/common/layout.vm")
+#@mainLayout()
+
+    #include("/templates/common/navbar.vm")
+
+    <h1>Index</h1>
+
+    <p>IsLogged: $isLogged</p>
+
+    #if ($isLogged)
+        <p>Bienvenido amiguito</p>
+    #end
+#end
