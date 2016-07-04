@@ -16,7 +16,15 @@ public class ViewUtil {
     private static VelocityTemplateEngine engine;
 
     public static String render(Request request, Map<String, Object> model, String templatePath) {
-        model.put("currentUser", getSessionCurrentUser(request));
+
+        if (isAdmin(request)) {
+            model.put("currentUser", getSessionCurrentAdmin(request));
+            model.put("isAdmin", true);
+        }else {
+            model.put("currentUser", getSessionCurrentUser(request));
+            model.put("isAdmin", false);
+        }
+
         model.put("isLogged", isLogged(request));
         model.put("WebPath", Routes.Web.class); // Access application URLs from templates
         if (model.get("titulo") == null) {

@@ -1,7 +1,12 @@
 package config;
 
+import app.admin.AdminDAO;
+import app.admin.AdminModel;
+import app.local.LocalDAO;
 import app.local.LocalModel;
+import app.usuario.UsuarioDAO;
 import app.usuario.UsuarioModel;
+import app.utils.Result;
 import org.sql2o.*;
 
 import java.util.ArrayList;
@@ -17,6 +22,17 @@ public class DBCreator {
 
     final static String createUsuarioSql
             = "CREATE TABLE IF NOT EXISTS Usuario" +
+            "(" +
+            "  ID serial NOT NULL PRIMARY KEY," +
+            "  Nombre character varying(45)," +
+            "  Apellido character varying," +
+            "  Usuario character varying NOT NULL UNIQUE," +
+            "  Password character varying" +
+            /*"  CONSTRAINT PK_Usuario PRIMARY KEY (ID)" +*/
+            ")";
+
+    final static String createAdminSql
+            = "CREATE TABLE IF NOT EXISTS Admin" +
             "(" +
             "  ID serial NOT NULL PRIMARY KEY," +
             "  Nombre character varying(45)," +
@@ -76,15 +92,20 @@ public class DBCreator {
             ")";
 
     public static void main(String[] args) {
-        System.out.println("Creating Tables ...");
+
         try(Connection con = sql2o.beginTransaction()) {
 
+            System.out.println("Creating Tables ...");
             // create table and insert something in a transaction
+            con.createQuery(createAdminSql).executeUpdate();
             con.createQuery(createUsuarioSql).executeUpdate();
             con.createQuery(createLocalSql).executeUpdate();
             con.createQuery(createProgramacionSql).executeUpdate();
             con.createQuery(createInspeccionSql).executeUpdate();
+
+            System.out.println("Inserting rows ...");
             insertUsuarios(con);
+            insertAdmin(con);
             insertLocales(con);
             
             con.commit();
@@ -93,6 +114,30 @@ public class DBCreator {
             System.err.println(e.getMessage());
         }
         System.out.println();
+    }
+
+    public static void insertAdmin(Connection con) {
+
+        final String getAdminSql
+                = "SELECT * FROM Admin" +
+                "  WHERE Usuario = :usuario" +
+                "  LIMIT 1";
+
+        final String insertAdminSql
+                = "INSERT INTO Admin (Nombre, Apellido, Usuario, Password)" +
+                "  VALUES (:nombre, :apellido, :usuario, :password)";
+
+        AdminModel admin = new AdminModel("Jorge", "Irey", "jirey", "abc");
+
+        List<AdminModel> adminTmp = con.createQuery(getAdminSql)
+                .addParameter("usuario", admin.getUsuario())
+                .executeAndFetch(AdminModel.class);
+
+        if (adminTmp.size() == 0) {
+            con.createQuery(insertAdminSql)
+                    .bind(admin)
+                    .executeUpdate();
+        }
     }
 
     public static void insertLocales(Connection con) {
@@ -217,10 +262,7 @@ public class DBCreator {
 
             if (usuariosTmp.size() == 0) {
                 con.createQuery(insertUsuarioSql)
-                        .addParameter("nombre", usuarioModel.getNombre())
-                        .addParameter("apellido", usuarioModel.getApellido())
-                        .addParameter("usuario", usuarioModel.getUsuario())
-                        .addParameter("password", usuarioModel.getPassword())
+                        .bind(usuarioModel)
                         .executeUpdate();
             }
 

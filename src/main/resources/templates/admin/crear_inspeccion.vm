@@ -3,6 +3,10 @@
 
     #parse("/templates/common/navbar.vm")
 
-    <h1>Index</h1>
+    <h1>Crear inspeccion</h1>
+
+    <form action="/admin/crear/inspeccion" method="post">
+
+    </form>
 
 #end
