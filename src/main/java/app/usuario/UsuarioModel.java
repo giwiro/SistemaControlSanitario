@@ -14,6 +14,9 @@ public class UsuarioModel {
     @Setter @Getter private String usuario;
     @Setter @Getter private String password;
 
+    public UsuarioModel() {
+    }
+
     public UsuarioModel(String nombre, String apellido, String usuario, String password) {
         this.nombre = nombre;
         this.apellido = apellido;

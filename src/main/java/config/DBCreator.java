@@ -64,8 +64,8 @@ public class DBCreator {
             "(" +
             "  ID serial NOT NULL PRIMARY KEY," +
             "  fecha date," +
-            "  id_usuario serial NOT NULL REFERENCES Usuario," +
-            "  id_local serial NOT NULL REFERENCES Local" +
+            "  id_usuario integer NOT NULL REFERENCES Usuario," +
+            "  id_local integer NOT NULL REFERENCES Local" +
             ")";
 
     final static String createInspeccionSql
@@ -88,7 +88,7 @@ public class DBCreator {
             "  conservacion character varying(45)," +
             "  manipulador character varying(45)," +
             "  medidas_seguridad character varying(45)," +
-            "  id_local serial NOT NULL REFERENCES Local" +
+            "  id_local integer NOT NULL REFERENCES Local" +
             ")";
 
     public static void main(String[] args) {

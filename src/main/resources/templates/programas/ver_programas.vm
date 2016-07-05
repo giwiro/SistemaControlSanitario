@@ -1,0 +1,54 @@
+#parse("/templates/common/layout.vm")
+#@mainLayout()
+
+    #parse("/templates/common/navbar.vm")
+
+    #if ($todayProgramas.size() > 0)
+        <h1>Programacion para hoy</h1>
+
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Razon Social</th>
+                    <th>Fecha</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                #foreach($programa in $todayProgramas)
+                <tr>
+                    <td>$programa.getId()</td>
+                    <td>$programa.getLocal().getRazon_social()</td>
+                    <td>$programa.getFecha()</td>
+                    <td><a href="/crear/inspeccion/$programa.getId()">Realizar inspeccion</a></td>
+                </tr>
+                #end
+            </tbody>
+        </table>
+
+    #else
+        <h3>No hay programacion para hoy</h3>
+    #end
+
+    <h1>Todas mis programaciones</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Razon Social</th>
+                <th>Fecha</th>
+            </tr>
+        </thead>
+        <tbody>
+            #foreach($programa in $resultProgramas.getResult())
+                <tr>
+                    <td>$programa.getId()</td>
+                    <td>$programa.getLocal().getRazon_social()</td>
+                    <td>$programa.getFecha()</td>
+                </tr>
+            #end
+        </tbody>
+    </table>
+
+#end

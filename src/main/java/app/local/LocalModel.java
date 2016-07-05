@@ -19,6 +19,9 @@ public class LocalModel {
     @Setter @Getter private String manipuladoresm;
     @Setter @Getter private String racionesdiarias;
 
+    public LocalModel() {
+    }
+
     public LocalModel(String ruc, String razon_social, String distrito, String provincia, String departamento, String administrador, String dni_administrador, String manipuladores, String manipuladoresm, String racionesdiarias) {
         this.ruc = ruc;
         this.razon_social = razon_social;
@@ -31,4 +34,5 @@ public class LocalModel {
         this.manipuladoresm = manipuladoresm;
         this.racionesdiarias = racionesdiarias;
     }
+
 }

@@ -1,0 +1,52 @@
+#parse("/templates/common/layout.vm")
+#@mainLayout()
+
+    #parse("/templates/common/navbar.vm")
+
+    #if ($resultValidate and !$resultValidate.isSuccess())
+        <h1 style="color: red;">$resultValidate.getMessage()</h1>
+    #end
+
+    #if ($resultInsert and $resultInsert.isSuccess())
+        <h1 style="color: green;">$resultInsert.getMessage()</h1>
+    #end
+
+    <h1>Crear programa</h1>
+
+    <form action="/admin/crear/programa" method="post">
+        <table>
+            <tbody>
+            <tr>
+                <td>¿Cuándo será la inspección?:</td>
+                <td><input type="date" name="fecha" required="required" /></td>
+            </tr>
+            <tr>
+                <td>¿Quién realizará la inspección?:</td>
+                <td>
+                    <select name="usuario" id="usuarios">
+                        <option value="" selected="selected" disabled="disabled">-- Seleccione un Usuario --</option>
+                        #foreach($usuario in $usuarios)
+                            <option value="$usuario.getId()">$usuario.getNombre() $usuario.getApellido()</option>
+                        #end
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>¿Dónde la inspección?:</td>
+                <td>
+                    <select name="local" id="local">
+                        <option value="" selected="selected" disabled="disabled">-- Seleccione un Local --</option>
+                        #foreach($local in $locales)
+                        <option value="$local.getId()">$local.getRazon_social()</option>
+                        #end
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><button type="submit">Ingresar</button></td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+
+#end

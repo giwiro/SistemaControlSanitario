@@ -32,7 +32,7 @@ public class LoginAdminController {
         Map<String, Object> model = new HashMap<>();
         model.put("titulo", "Login");
         //System.out.println("body: " + request.body());
-        System.out.println("query: " + request.queryParams("usuario") + " " + request.queryParams("password"));
+        //System.out.println("query: " + request.queryParams("usuario") + " " + request.queryParams("password"));
 
         Result<AdminModel> result
                 = AdminDAO.validateAdmin(request.queryParams("usuario"),request.queryParams("password"));
@@ -45,7 +45,7 @@ public class LoginAdminController {
 
         model.put("result", result);
 
-        System.out.println("Login: " + result.isSuccess());
+        //System.out.println("Login: " + result.isSuccess());
 
         return ViewUtil.render(request, model, Routes.Template.LOGIN_ADMIN);
     };

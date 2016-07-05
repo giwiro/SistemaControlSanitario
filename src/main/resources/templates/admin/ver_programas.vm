@@ -1,0 +1,33 @@
+#parse("/templates/common/layout.vm")
+#@mainLayout()
+
+    #parse("/templates/common/navbar.vm")
+
+    <h1>Ver programas</h1>
+
+    #if ($resultProgramas.isSuccess())
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Local</th>
+                    <th>Empleado asignado</th>
+                    <th>Fecha</th>
+                </tr>
+            </thead>
+            <tbody>
+                #foreach($programa in $resultProgramas.getResult())
+                <tr>
+                    <td>$programa.getId()</td>
+                    <td>$programa.getLocal().getRazon_social()</td>
+                    <td>$programa.getUsuario().getNombre() $programa.getUsuario().getApellido()</td>
+                    <td>$programa.getFecha()</td>
+                </tr>
+                #end
+            </tbody>
+        </table>
+    #else
+        <p>$resultProgramas.getMessage()</p>
+    #end
+
+#end

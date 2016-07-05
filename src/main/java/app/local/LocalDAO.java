@@ -62,7 +62,7 @@ public class LocalDAO {
         }
     }
 
-    public static Result<List<LocalModel>> getLocales() {
+    public static Result<List<LocalModel>> getAllLocales() {
         try(Connection con = Application.sql2o.open()){
             List<LocalModel> locales = con.createQuery(getLocalesSql)
                     .executeAndFetch(LocalModel.class);
@@ -89,7 +89,6 @@ public class LocalDAO {
             if (localTmp.size() == 0) {
                 return new Result<>(false, null, "No se ha encontrado el local");
             }
-
             return new Result<>(true, localTmp.get(0), "Se ha encontrado el local");
 
         }catch(Sql2oException e) {

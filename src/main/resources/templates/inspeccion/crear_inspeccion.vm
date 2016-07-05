@@ -1,0 +1,36 @@
+#parse("/templates/common/layout.vm")
+#@mainLayout()
+
+    #parse("/templates/common/navbar.vm")
+
+    #if ($resultValidate and !$resultValidate.isSuccess())
+        <h1 style="color: red;">$resultValidate.getMessage()</h1>
+    #end
+
+    <h1>Crear inspeccion</h1>
+
+    <form action="/crear/inspeccion/$local_id" method="post">
+        <input type="hidden" name="local_id" value="$local_id" required="required" />
+
+        <table>
+            <tbody>
+                <tr>
+                    <td>Ubicacion:</td>
+                    <td><input type="text" name="ubicacion" required="required" /></td>
+                </tr>
+                <tr>
+                    <td>Almacen:</td>
+                    <td><input type="text" name="almacen" required="required" /></td>
+                </tr>
+                <tr>
+                    <td>Cocina:</td>
+                    <td><input type="text" name="cocina" required="required" /></td>
+                </tr>
+                <tr>
+                    <td><button type="submit">Insertar</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+
+#end

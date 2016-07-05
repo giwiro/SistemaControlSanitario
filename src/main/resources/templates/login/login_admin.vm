@@ -13,11 +13,11 @@
         <tbody>
         <tr>
             <td>Usuario:</td>
-            <td><input type="text" name="usuario" /></td>
+            <td><input type="text" name="usuario" required="required"/></td>
         </tr>
         <tr>
             <td>Password:</td>
-            <td><input type="password" name="password" /></td>
+            <td><input type="password" name="password" required="required"/></td>
         </tr>
         <tr>
             <td><button type="submit">Ingresar</button></td>
