@@ -16,7 +16,8 @@ import java.util.List;
  * Created by Gi Wah Davalos on 1/07/2016.
  */
 public class DBCreator {
-    private static final Sql2o sql2o = new Sql2o(DBInfo.getURL(), DBInfo.DB_USER, DBInfo.DB_PASSWORD);
+    //private static final Sql2o sql2o = new Sql2o(DBInfo.getURL(), DBInfo.DB_USER, DBInfo.DB_PASSWORD);
+    private static final Sql2o sql2o = new Sql2o(DBInfo.getSecureURL(), DBInfo.DB_USER, DBInfo.DB_PASSWORD);
 
     //final static String createSql = "CREATE TABLE IF NOT EXISTS testtable(id integer primary key, val varchar(50))";
 
