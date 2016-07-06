@@ -21,7 +21,7 @@
                     <td>$programa.getId()</td>
                     <td>$programa.getLocal().getRazon_social()</td>
                     <td>$programa.getFecha()</td>
-                    <td><a href="/crear/inspeccion/$programa.getId()">Realizar inspeccion</a></td>
+                    <td><a href="/crear/inspeccion/$programa.getLocal().getId()">Realizar inspeccion</a></td>
                 </tr>
                 #end
             </tbody>

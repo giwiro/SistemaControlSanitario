@@ -24,7 +24,7 @@ import java.util.Map;
 public class InspeccionController {
 
     public static Route serveCrearInspeccionPage = (request, response) -> {
-
+        //System.out.println("serveCreatInspeccionPage");
         Map<String, Object> model = new HashMap<>();
         model.put("titulo", "Crear Inspeccion");
         int local_id;
@@ -41,18 +41,20 @@ public class InspeccionController {
         Result<ProgramaModel> resultPrograma = ProgramaDAO.getProgramaByLocal(local_id);
 
         if (!resultPrograma.isSuccess()) {
-            response.redirect(Routes.Web.getVER_PROGRAMAS());
+            System.out.println(resultPrograma.getMessage());
+            response.redirect(Routes.Web.VER_PROGRAMAS);
         }
 
         if (!Application.formatter.format(new Date()).equals(resultPrograma.getResult().getFecha().toString())) {
-            response.redirect(Routes.Web.getVER_PROGRAMAS());
+            response.redirect(Routes.Web.VER_PROGRAMAS);
         }
 
         if (resultPrograma.getResult().getId_usuario() != SessionUtil.getSessionCurrentUser(request).getId()) {
-            response.redirect(Routes.Web.getVER_PROGRAMAS());
+            response.redirect(Routes.Web.VER_PROGRAMAS);
         }
 
         return ViewUtil.render(request, model, Routes.Template.CREAR_INSPECCION);
+        //return "<h1>h</h1>";
 
     };
 

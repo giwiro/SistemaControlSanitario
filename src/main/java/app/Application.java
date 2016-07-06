@@ -28,7 +28,7 @@ public class Application {
 
     public static void main(String[] args) {
 
-        sql2o = new Sql2o(DBInfo.getURL(), DBInfo.DB_USER, DBInfo.DB_PASSWORD);
+        sql2o = new Sql2o(DBInfo.getSecureURL(), DBInfo.DB_USER, DBInfo.DB_PASSWORD);
         formatter = new SimpleDateFormat("yyyy-MM-dd");
 
         port(getPort(8080));
