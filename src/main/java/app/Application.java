@@ -33,6 +33,7 @@ public class Application {
 
         port(getPort(8080));
         enableDebugScreen();
+        staticFiles.location("/public");
 
         get(Routes.Web.INDEX,                   IndexController.serveIndexPage);
 
